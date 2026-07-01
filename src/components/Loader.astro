@@ -1,0 +1,119 @@
+---
+
+---
+
+<div
+  id="preloader"
+  class="fixed inset-0 z-[999] flex items-center justify-center bg-black"
+>
+  <div class="flex flex-col items-center gap-6">
+    <!-- Greeting Text Container -->
+    <div class="flex items-center justify-center">
+      <h2
+        id="preloader-text"
+        class="font-heading text-4xl sm:text-6xl md:text-7xl font-bold uppercase tracking-tighter text-white opacity-0"
+      >
+        Hello
+      </h2>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  const greetings = [
+    "Hello", // English
+    "नमस्ते", // Hindi
+    "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ", // Punjabi
+    "નમસ્તે", // Gujarati
+  ];
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const preloader = document.getElementById("preloader");
+    const textEl = document.getElementById("preloader-text");
+    const body = document.body;
+
+    if (!preloader || !textEl) return;
+
+    // Lock scroll immediately
+    body.style.overflow = "hidden";
+
+    let currentIndex = 0;
+
+    // Custom SplitText implementation for words
+    function splitWords(element: HTMLElement) {
+      const text = element.textContent?.trim() || "";
+      element.textContent = "";
+
+      const words = text.split(" ").map((word) => {
+        const span = document.createElement("span");
+        span.textContent = word + "\u00A0"; // Preserve spacing
+        span.style.display = "inline-block";
+        element.appendChild(span);
+        return span;
+      });
+      return words;
+    }
+
+    function runAnimationCycle() {
+      if (!textEl || !preloader) return;
+
+      // Set greeting content
+      textEl.textContent = greetings[currentIndex];
+      // Make text visible now that fonts are loaded and split is about to occur
+      textEl.classList.remove('opacity-0');
+
+      // Split text into words
+      const words = splitWords(textEl);
+
+      // GSAP Staggered Fade In using fromTo to prevent layout flash
+      gsap.fromTo(words, 
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.06,
+          duration: 0.5,
+          ease: "power2.out"
+        }
+      );
+
+      // Hold, then animate out and transition to the next greeting
+      setTimeout(() => {
+        gsap.to(words, {
+          opacity: 0,
+          y: -15,
+          stagger: 0.04,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => {
+            currentIndex++;
+            if (currentIndex < greetings.length) {
+              runAnimationCycle();
+            } else {
+              // Dispatch completion event at the start of the slide-up to sync page animations
+              window.dispatchEvent(new Event('preloader-complete'));
+
+              // Final slide-up transition of the preloader screen
+              gsap.to(preloader, {
+                yPercent: -100,
+                duration: 0.8,
+                ease: "power4.inOut",
+                onComplete: () => {
+                  body.style.overflow = "";
+                  preloader.style.display = "none";
+                },
+              });
+            }
+          },
+        });
+      }, 750); // Reading delay duration before starting out animation
+    }
+
+    // Wait for custom fonts to load completely before running the animation to prevent FOUC / resizing flash
+    document.fonts.ready.then(() => {
+      runAnimationCycle();
+    });
+  });
+</script>

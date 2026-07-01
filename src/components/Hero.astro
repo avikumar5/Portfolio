@@ -1,53 +1,57 @@
 ---
+import SplitText from './SplitText.astro';
 ---
 
-<section id="hero" class="relative flex min-h-[90vh] flex-col justify-between border-b border-zinc-900 px-6 py-12 md:px-12 md:py-24 lg:py-32">
-  <!-- Subtle top line marker -->
-  <div class="absolute top-0 left-6 md:left-12 h-px w-24 bg-zinc-800"></div>
-  
-  <div class="mx-auto my-auto flex w-full max-w-[1600px] flex-col justify-center">
-    <!-- Subtitle/Greeting -->
-    <div class="mb-4 flex items-center gap-3">
-      <span class="h-1.5 w-1.5 rounded-full bg-white animate-pulse"></span>
-      <span class="text-xs uppercase tracking-widest text-zinc-400 font-medium">Available for work</span>
+<section
+  id="hero"
+  class="relative flex min-h-[90vh] flex-col justify-center border-b border-zinc-900 px-6 py-12 md:px-12 lg:px-24"
+>
+  <div
+    class="mx-auto flex w-full max-w-[1600px] flex-col items-start justify-center"
+  >
+    <!-- Status Indicator -->
+    <div class="flex items-center gap-2 mb-6 select-none">
+      <span class="h-2 w-2 rounded-full bg-[#4ade80]"></span>
+      <span
+        class="text-xs font-bold uppercase tracking-widest text-zinc-500 font-mono"
+        >Open to work</span
+      >
     </div>
 
-    <!-- Main Heading -->
-    <h1 class="font-heading text-6xl font-black uppercase leading-[0.9] tracking-tighter text-white sm:text-8xl md:text-9xl xl:text-[11rem] 2xl:text-[13rem]">
-      CREATIVE<br />
-      DEVELOPER
-    </h1>
+    <!-- Main Heading (Animate on Load) -->
+    <SplitText
+      as="h1"
+      trigger="load"
+      delay={0}
+      class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.15] tracking-tight text-white mb-6"
+    >
+      Hello, I'm
+      <img
+        src="/avatar.png"
+        alt="Avatar"
+        class="inline-block h-11 w-11 sm:h-16 sm:w-16 rounded-xl mx-2 object-cover align-middle -translate-y-1 border border-zinc-800 bg-[#76c900]"
+      />
+      Kshitiz Kumar <br />
+      Full-Stack Developer
+    </SplitText>
 
-    <!-- Short Intro -->
-    <div class="mt-8 grid grid-cols-1 gap-6 md:mt-12 md:grid-cols-12">
-      <div class="md:col-span-6 lg:col-span-5">
-        <p class="font-body text-base leading-relaxed text-zinc-400 md:text-lg">
-          I build high-performance, responsive web interfaces with meticulous attention to detail. Blending minimalist design principles with clean structural code.
-        </p>
-      </div>
-      
-      <!-- CTA Buttons -->
-      <div class="flex flex-wrap items-center gap-4 md:col-span-6 md:justify-end lg:col-span-7">
-        <a 
-          href="#experience" 
-          class="border border-white bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black hover:bg-black hover:text-white transition-all duration-300"
-        >
-          View Work
-        </a>
-        <a 
-          href="#contact" 
-          class="border border-zinc-800 bg-transparent px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-zinc-900 hover:border-zinc-700 transition-all duration-300"
-        >
-          Get In Touch
-        </a>
-      </div>
-    </div>
-  </div>
+    <!-- Description Subtitle (Animate on Load with Offset) -->
+    <SplitText
+      as="p"
+      trigger="load"
+      delay={200}
+      class="font-body text-base sm:text-lg md:text-xl text-zinc-400 max-w-2xl mb-8 leading-relaxed"
+    >
+      Transforming complex problems into elegant, scalable solutions
+    </SplitText>
 
-  <!-- Decorative bottom status indicator bar -->
-  <div class="mx-auto flex w-full max-w-[1600px] items-center justify-between text-[10px] uppercase tracking-widest text-zinc-600 mt-12 md:mt-0">
-    <div>Based in New Delhi, IN</div>
-    <div class="hidden sm:block">Scroll down to explore</div>
-    <div>Est. 2026</div>
+    <!-- Call to Action -->
+    <a
+      href="#contact"
+      class="inline-block border border-white bg-white px-6 py-3.5 text-sm font-bold text-black rounded-xl hover:bg-black hover:text-white transition-all duration-300 shadow-md shadow-white/5"
+    >
+      Book a call
+    </a>
+
   </div>
 </section>

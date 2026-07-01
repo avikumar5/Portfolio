@@ -29,5 +29,22 @@ const {
 	</head>
 	<body class="min-h-screen">
 		<slot />
+
+		<!-- Scroll Progress Bar -->
+		<div class="fixed bottom-0 left-0 right-0 z-50 h-[3px] bg-zinc-950">
+			<div id="scroll-progress-line" class="h-full w-0 bg-white transition-all duration-75 ease-out"></div>
+		</div>
+
+		<script>
+			window.addEventListener('scroll', () => {
+				const winScroll = window.scrollY || document.documentElement.scrollTop;
+				const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+				const progressLine = document.getElementById('scroll-progress-line');
+				if (progressLine) {
+					progressLine.style.width = `${scrolled}%`;
+				}
+			});
+		</script>
 	</body>
 </html>

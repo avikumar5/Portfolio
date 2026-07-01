@@ -1,56 +1,107 @@
 ---
+import SplitText from "./SplitText.astro";
+
 const stats = [
-  { value: '5+', label: 'Years Experience' },
-  { value: '40+', label: 'Projects Completed' },
-  { value: '100%', label: 'Delivery Rate' },
-  { value: '20+', label: 'Happy Partners' },
+  { value: "1 +", label: "Years of experience" },
+  { value: "10 +", label: "Projects Completed" },
+  { value: "~20%", label: "LLM cost cut" },
+  { value: "5+", label: "Client projects" },
 ];
 ---
 
-<section id="about" class="border-b border-zinc-900 px-6 py-20 md:px-12 md:py-32">
-  <div class="mx-auto max-w-[1600px]">
-    
-    <!-- Section Identifier -->
-    <div class="mb-12 flex items-center justify-between border-b border-zinc-900 pb-4">
-      <h2 class="font-heading text-xs font-bold uppercase tracking-widest text-zinc-500">01 / ABOUT ME</h2>
-      <span class="text-xs text-zinc-600 uppercase tracking-widest font-mono">Biography</span>
-    </div>
-
-    <!-- Layout Grid -->
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12">
-      <!-- Left side bold message -->
-      <div class="lg:col-span-5">
-        <h3 class="font-heading text-3xl font-bold uppercase leading-tight text-white md:text-4xl xl:text-5xl">
-          DESIGNING DIGITAL ARCHITECTURE WITH PURE CODE.
-        </h3>
+<section
+  id="about"
+  class="border-b border-zinc-900 px-6 py-24 md:px-12 md:py-32"
+>
+  <div class="mx-auto max-w-[1600px] space-y-20 md:space-y-32">
+    <!-- Top Row: About Me Biography -->
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
+      <!-- Section Label (Left Column) -->
+      <div class="md:col-span-3">
+        <h2
+          class="font-heading text-xs font-bold uppercase tracking-widest text-zinc-500 font-mono"
+        >
+          ABOUT ME
+        </h2>
       </div>
 
-      <!-- Right side narrative and stats -->
-      <div class="space-y-12 lg:col-span-7">
+      <!-- Biography & Signature (Right Column) -->
+      <div class="md:col-span-9 space-y-8 max-w-4xl">
         <div class="space-y-6">
-          <p class="font-body text-base leading-relaxed text-zinc-400 md:text-lg">
-            I am a software engineer focused on structural integrity and user experience. Over the last five years, I have built web applications ranging from sleek marketing pages to complex administrative tools, maintaining a strict adherence to code standards and visual clarity.
-          </p>
-          <p class="font-body text-base leading-relaxed text-zinc-500">
-            My engineering philosophy centers around minimalism: removing unnecessary elements until only what is vital remains. Every line of CSS, every component, and every logic block serves a distinct purpose.
-          </p>
+          <SplitText
+            as="p"
+            trigger="scroll"
+            class="font-body text-base sm:text-lg md:text-[1.1rem] leading-relaxed text-zinc-300"
+          >
+            I am a technology professional who bridges the gap between design
+            and engineering. With over 8 years of experience building scalable,
+            high-performing applications, I specialize in crafting intuitive
+            digital products that address real-world business challenges and
+            deliver measurable impact.
+          </SplitText>
+          <SplitText
+            as="p"
+            trigger="scroll"
+            class="font-body text-base sm:text-lg md:text-[1.1rem] leading-relaxed text-zinc-400"
+          >
+            Throughout my career, I have worked across the full software
+            development lifecycle—translating complex requirements into elegant
+            solutions, collaborating closely with designers, product managers,
+            and stakeholders, and ensuring technical excellence from
+            architecture to deployment. I bring a strong focus on clean code
+            principles, maintainable systems, and performance-driven
+            development, while never losing sight of the end user.
+          </SplitText>
         </div>
 
-        <!-- Numeric Stats Grid -->
-        <div class="grid grid-cols-2 gap-4 sm:gap-6">
-          {stats.map(stat => (
-            <div class="border border-zinc-900 bg-zinc-950/40 p-6 md:p-8 hover:border-zinc-800 transition-colors duration-300">
-              <div class="font-heading text-3xl font-extrabold text-white md:text-4xl lg:text-5xl">
+        <!-- Handwritten Signature & Name -->
+        <div class="pt-6 space-y-3">
+          <!-- Stylized signature vector -->
+          <svg
+            class="h-12 w-auto text-white opacity-80"
+            viewBox="0 0 200 60"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M15 45 C 30 10, 40 30, 50 15 C 60 10, 65 35, 75 38 C 85 40, 95 15, 105 25 C 115 35, 120 10, 130 18 C 140 25, 145 42, 155 30 C 165 18, 175 25, 185 28"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+            <path
+              d="M45 32 Q 95 28 165 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+          <div
+            class="font-heading text-sm font-semibold uppercase tracking-wider text-zinc-300"
+          >
+            Kshitiz Kumar
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: 4-Column Separated Stats Grid (No Section Labels) -->
+    <div class="pt-16 border-t border-zinc-900">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 sm:gap-y-8"
+      >
+        {
+          stats.map((stat, index) => (
+            <div
+              class={`px-0 sm:px-6 lg:px-8 ${index > 0 ? "lg:border-l border-zinc-900" : ""} ${index === 1 || index === 3 ? "sm:border-l border-zinc-900" : ""} ${index === 2 ? "sm:border-l-0 lg:border-l border-zinc-900" : ""} space-y-2`}
+            >
+              <div class="font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
                 {stat.value}
               </div>
-              <div class="mt-2 text-xs uppercase tracking-wider text-zinc-500 font-medium">
+              <div class="text-xs uppercase tracking-wider text-zinc-500 font-semibold font-body">
                 {stat.label}
               </div>
             </div>
-          ))}
-        </div>
+          ))
+        }
       </div>
     </div>
-
   </div>
 </section>

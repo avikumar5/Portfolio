@@ -1,0 +1,149 @@
+---
+interface Props {
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div";
+  class?: string;
+  style?: string;
+  trigger?: "load" | "scroll";
+  delay?: number;
+}
+
+const {
+  as: Tag = "p",
+  class: className = "",
+  style = "",
+  trigger = "scroll",
+  delay = 0,
+} = Astro.props;
+---
+
+<Tag
+  class={`split-text-animate opacity-0 ${className}`}
+  style={style}
+  data-trigger={trigger}
+  data-delay={delay}
+>
+  <slot />
+</Tag>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  // Register GSAP plugin
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Run initialization after DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll(".split-text-animate");
+
+    // Advanced node-based splitter preserving HTML elements like <img> and <br>
+    function splitWords(element: HTMLElement) {
+      const nodes = Array.from(element.childNodes);
+      element.innerHTML = "";
+
+      const words: HTMLElement[] = [];
+
+      nodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent || "";
+          const parts = text.split(/(\s+)/); // Capture whitespaces to keep raw formatting
+
+          parts.forEach((part) => {
+            if (part === "") return;
+            if (part.trim() === "") {
+              // Append spacing nodes as standard text node
+              element.appendChild(document.createTextNode(part));
+            } else {
+              // Wrap single words in spans for GSAP
+              const span = document.createElement("span");
+              span.textContent = part;
+              span.style.display = "inline-block";
+              element.appendChild(span);
+              words.push(span);
+            }
+          });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const elNode = node as HTMLElement;
+          if (elNode.tagName === "IMG") {
+            // Animate images (like the inline avatar) inline with the words
+            elNode.style.display = "inline-block";
+            element.appendChild(elNode);
+            words.push(elNode);
+          } else if (elNode.tagName === "BR") {
+            // Pass line breaks directly to layout
+            element.appendChild(elNode);
+          } else {
+            // Treat any other inline tag as a single animatable word
+            elNode.style.display = "inline-block";
+            element.appendChild(elNode);
+            words.push(elNode);
+          }
+        }
+      });
+
+      return words;
+    }
+
+    elements.forEach((el) => {
+      const htmlEl = el as HTMLElement;
+      const triggerType = htmlEl.getAttribute("data-trigger") || "scroll";
+      const delayAttr = htmlEl.getAttribute("data-delay");
+      const customDelay = delayAttr ? parseInt(delayAttr, 10) : 0;
+
+      // Perform splitting
+      const words = splitWords(htmlEl);
+
+      // Make container visible now that splitting is complete
+      htmlEl.classList.remove("opacity-0");
+
+      const animateIn = () => {
+        gsap.fromTo(
+          words,
+          { opacity: 0, y: 15 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.06,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+        );
+      };
+
+      if (triggerType === "load") {
+        const preloader = document.getElementById("preloader");
+        if (preloader && preloader.style.display !== "none") {
+          // Wait for preloader transition event
+          window.addEventListener(
+            "preloader-complete",
+            () => {
+              setTimeout(animateIn, 500 + customDelay);
+            },
+            { once: true },
+          );
+        } else {
+          // If preloader is disabled, run after initial paint delay
+          setTimeout(animateIn, 400 + customDelay);
+        }
+      } else {
+        // Trigger animation on scroll using ScrollTrigger
+        gsap.fromTo(
+          words,
+          { opacity: 0, y: 15 },
+          {
+            scrollTrigger: {
+              trigger: htmlEl,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+            opacity: 1,
+            y: 0,
+            stagger: 0.06,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+        );
+      }
+    });
+  });
+</script>
