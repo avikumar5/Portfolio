@@ -1,0 +1,151 @@
+---
+const socials = [
+  { name: 'GitHub', href: 'https://github.
+com' },
+  { name: 'LinkedIn', href: 'https://linkedin.com' },
+  { name: 'X / Twitter', href: 'https://x.com' },
+  { name: 'Read.cv', href: 'https://read.cv' }
+];
+
+const email = 'hello@developer.com';
+---
+
+<footer id="contact" class="px-6 py-16 md:px-12 md:py-24 bg-black border-t border-zinc-900">
+  <div class="mx-auto max-w-[1600px] space-y-16">
+    
+    <!-- Footer CTA -->
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
+      <!-- Heading -->
+      <div class="lg:col-span-6 space-y-4">
+        <h2 class="font-heading text-xs font-bold uppercase tracking-widest text-zinc-500">05 / CONTACT</h2>
+        <h3 class="font-heading text-4xl font-extrabold uppercase leading-tight text-white sm:text-5xl md:text-6xl">
+          LET'S CREATE THE NEXT GENERATION.
+        </h3>
+        <p class="font-body text-base text-zinc-400 max-w-md">
+          I am currently open to full-time roles, contract opportunities, and selective freelance consulting.
+        </p>
+      </div>
+
+      <!-- Email Card / Clipboard Widget -->
+      <div class="lg:col-span-6 flex flex-col items-start lg:items-end justify-center h-full space-y-4">
+        <span class="text-xs uppercase tracking-widest text-zinc-500 font-mono">Direct Communication</span>
+        
+        <!-- Copyable Email Block -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <div 
+            id="email-container" 
+            class="flex items-center justify-between gap-4 border border-zinc-800 bg-zinc-950 px-5 py-3.5 cursor-pointer group hover:border-zinc-500 transition-all duration-300"
+            data-email={email}
+            title="Click to copy email address"
+          >
+            <span id="email-text" class="font-body text-sm font-semibold text-white tracking-wide select-all">
+              {email}
+            </span>
+            <svg id="copy-icon" class="h-4 w-4 text-zinc-500 group-hover:text-white transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+            <span id="copied-toast" class="hidden text-xs uppercase tracking-widest text-zinc-400 font-mono">Copied!</span>
+          </div>
+          
+          <a 
+            href={`mailto:${email}`} 
+            class="border border-white bg-white px-5 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-black hover:bg-black hover:text-white hover:border-white transition-all duration-300"
+          >
+            Send Mail
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider Line -->
+    <div class="h-px w-full bg-zinc-900"></div>
+
+    <!-- Footer Links and Copyright -->
+    <div class="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-8">
+      
+      <!-- Copyright Info -->
+      <div class="space-y-2">
+        <p class="text-xs text-zinc-500 uppercase tracking-widest">
+          &copy; {new Date().getFullYear()} PORTFOLIO. ALL RIGHTS RESERVED.
+        </p>
+        <p class="text-[10px] text-zinc-600 uppercase tracking-wider">
+          Built with Astro JS &amp; Tailwind CSS
+        </p>
+      </div>
+
+      <!-- Social and Back to Top -->
+      <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div class="flex items-center space-x-6">
+          {socials.map(soc => (
+            <a 
+              href={soc.href} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="text-xs uppercase tracking-wider text-zinc-500 hover:text-white transition-colors duration-200"
+            >
+              {soc.name}
+            </a>
+          ))}
+        </div>
+        
+        <!-- Vertical separator -->
+        <span class="hidden md:inline h-4 w-px bg-zinc-800"></span>
+
+        <!-- Back to Top Button -->
+        <button 
+          id="back-to-top" 
+          class="flex items-center gap-2 text-xs uppercase tracking-widest text-zinc-400 hover:text-white transition-colors duration-200"
+          aria-label="Back to Top"
+        >
+          <span>Top</span>
+          <svg class="h-3.5 w-3.5 transform -rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Email Copy Logic
+  const emailContainer = document.getElementById('email-container');
+  const emailText = document.getElementById('email-text');
+  const copyIcon = document.getElementById('copy-icon');
+  const copiedToast = document.getElementById('copied-toast');
+
+  if (emailContainer && emailText && copyIcon && copiedToast) {
+    emailContainer.addEventListener('click', async () => {
+      const emailVal = emailContainer.getAttribute('data-email') || '';
+      try {
+        await navigator.clipboard.writeText(emailVal);
+        
+        // Show Toast, Hide Text & Icon
+        emailText.classList.add('hidden');
+        copyIcon.classList.add('hidden');
+        copiedToast.classList.remove('hidden');
+
+        // Reset Toast after 2 seconds
+        setTimeout(() => {
+          emailText.classList.remove('hidden');
+          copyIcon.classList.remove('hidden');
+          copiedToast.classList.add('hidden');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy email: ', err);
+      }
+    });
+  }
+
+  // Back to Top Smooth Scroll
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+</script>

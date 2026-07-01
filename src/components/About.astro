@@ -1,0 +1,56 @@
+---
+const stats = [
+  { value: '5+', label: 'Years Experience' },
+  { value: '40+', label: 'Projects Completed' },
+  { value: '100%', label: 'Delivery Rate' },
+  { value: '20+', label: 'Happy Partners' },
+];
+---
+
+<section id="about" class="border-b border-zinc-900 px-6 py-20 md:px-12 md:py-32">
+  <div class="mx-auto max-w-[1600px]">
+    
+    <!-- Section Identifier -->
+    <div class="mb-12 flex items-center justify-between border-b border-zinc-900 pb-4">
+      <h2 class="font-heading text-xs font-bold uppercase tracking-widest text-zinc-500">01 / ABOUT ME</h2>
+      <span class="text-xs text-zinc-600 uppercase tracking-widest font-mono">Biography</span>
+    </div>
+
+    <!-- Layout Grid -->
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <!-- Left side bold message -->
+      <div class="lg:col-span-5">
+        <h3 class="font-heading text-3xl font-bold uppercase leading-tight text-white md:text-4xl xl:text-5xl">
+          DESIGNING DIGITAL ARCHITECTURE WITH PURE CODE.
+        </h3>
+      </div>
+
+      <!-- Right side narrative and stats -->
+      <div class="space-y-12 lg:col-span-7">
+        <div class="space-y-6">
+          <p class="font-body text-base leading-relaxed text-zinc-400 md:text-lg">
+            I am a software engineer focused on structural integrity and user experience. Over the last five years, I have built web applications ranging from sleek marketing pages to complex administrative tools, maintaining a strict adherence to code standards and visual clarity.
+          </p>
+          <p class="font-body text-base leading-relaxed text-zinc-500">
+            My engineering philosophy centers around minimalism: removing unnecessary elements until only what is vital remains. Every line of CSS, every component, and every logic block serves a distinct purpose.
+          </p>
+        </div>
+
+        <!-- Numeric Stats Grid -->
+        <div class="grid grid-cols-2 gap-4 sm:gap-6">
+          {stats.map(stat => (
+            <div class="border border-zinc-900 bg-zinc-950/40 p-6 md:p-8 hover:border-zinc-800 transition-colors duration-300">
+              <div class="font-heading text-3xl font-extrabold text-white md:text-4xl lg:text-5xl">
+                {stat.value}
+              </div>
+              <div class="mt-2 text-xs uppercase tracking-wider text-zinc-500 font-medium">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
