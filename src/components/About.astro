@@ -27,11 +27,10 @@ const stats = [
 
       <!-- Biography & Signature (Right Column) -->
       <div class="md:col-span-9 space-y-8 max-w-4xl">
-        <div class="space-y-6">
           <SplitText
             as="p"
-            trigger="scroll"
-            class="font-body text-base sm:text-lg md:text-[1.1rem] leading-relaxed text-zinc-300"
+            trigger="scrub"
+            class="font-body text-base sm:text-lg md:text-[1.3rem] leading-[2] text-white/15"
           >
             I am a technology professional who bridges the gap between design
             and engineering. With over 8 years of experience building scalable,
@@ -41,8 +40,8 @@ const stats = [
           </SplitText>
           <SplitText
             as="p"
-            trigger="scroll"
-            class="font-body text-base sm:text-lg md:text-[1.1rem] leading-relaxed text-zinc-400"
+            trigger="scrub"
+            class="font-body text-base sm:text-lg md:text-[1.3rem] leading-[2] text-white/15"
           >
             Throughout my career, I have worked across the full software
             development lifecycle—translating complex requirements into elegant
@@ -52,7 +51,6 @@ const stats = [
             principles, maintainable systems, and performance-driven
             development, while never losing sight of the end user.
           </SplitText>
-        </div>
 
         <!-- Handwritten Signature & Name -->
         <div class="pt-6 space-y-3">
@@ -83,14 +81,14 @@ const stats = [
     </div>
 
     <!-- Bottom Row: 4-Column Separated Stats Grid (No Section Labels) -->
-    <div class="pt-16 border-t border-zinc-900">
+    <div class="pt-16 border-t border-[#525151]">
       <div
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 sm:gap-y-8"
       >
         {
           stats.map((stat, index) => (
             <div
-              class={`px-0 sm:px-6 lg:px-8 ${index > 0 ? "lg:border-l border-zinc-900" : ""} ${index === 1 || index === 3 ? "sm:border-l border-zinc-900" : ""} ${index === 2 ? "sm:border-l-0 lg:border-l border-zinc-900" : ""} space-y-2`}
+              class={`px-0 sm:px-6 lg:px-8 ${index > 0 ? "lg:border-l border-[#525151]" : ""} ${index === 1 || index === 3 ? "sm:border-l border-[#525151]" : ""} ${index === 2 ? "sm:border-l-0 lg:border-l border-[#525151]" : ""} space-y-2`}
             >
               <div class="font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
                 {stat.value}

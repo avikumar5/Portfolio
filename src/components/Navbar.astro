@@ -169,4 +169,21 @@ const navLinks = [
       observer.observe(section);
     }
   });
+
+  // Smooth scroll interceptor to prevent URL hash updates
+  const allScrollLinks = document.querySelectorAll('a[href^="#"]');
+  allScrollLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      if (!targetId || targetId === '#') return;
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
 </script>
