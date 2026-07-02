@@ -7,6 +7,37 @@ const stats = [
   { value: "~20%", label: "LLM cost cut" },
   { value: "5+", label: "Client projects" },
 ];
+
+const technologies = [
+  { name: "ML", iconClass: "devicons devicons-tensorflow" },
+  { name: "LLM", iconClass: "devicons devicons-openai" },
+  { name: "AI-Agents", iconClass: "devicons devicons-pytorch" },
+  { name: "RAG", iconClass: "devicons devicons-pandas" },
+  { name: "Vector DBs", iconClass: "devicons devicons-redis" },
+  { name: "Langchain", iconClass: "devicons devicons-langchain" },
+  { name: "HuggingFace", iconClass: "devicons devicons-hugging-face-icon " },
+  { name: "n8n", iconClass: "devicons devicons-n8n" },
+  { name: "Python", iconClass: "devicons devicons-python" },
+  { name: "C++", iconClass: "devicons devicons-c-plusplus" },
+  { name: "SQL", iconClass: "devicons devicons-postgresql" },
+  { name: "Typescript", iconClass: "devicons devicons-typescript-icon" },
+  { name: "Nest.js", iconClass: "devicons devicons-nestjs" },
+  { name: "Flask", iconClass: "devicons devicons-flask" },
+  { name: "FastAPI", iconClass: "devicons devicons-fastapi-icon" },
+  { name: "Node.js", iconClass: "devicons devicons-nodejs-icon" },
+  { name: "Express.js", iconClass: "devicons devicons-express" },
+  { name: "Tailwind", iconClass: "devicons devicons-tailwind-icon" },
+  { name: "React", iconClass: "devicons devicons-react" },
+  { name: "Next.js", iconClass: "devicons devicons-nextjs-icon" },
+  { name: "GSAP", iconClass: "devicons devicons-greensock-icon" },
+  { name: "Three.js", iconClass: "devicons devicons-threejs" },
+  { name: "VS Code", iconClass: "devicons devicons-visual-studio-code" },
+  { name: "Colab", iconClass: "devicons devicons-jupyter" },
+  { name: "Git", iconClass: "devicons devicons-git-icon" },
+  { name: "Jupyter notebook", iconClass: "devicons devicons-jupyter" },
+  { name: "Docker", iconClass: "devicons devicons-docker-icon colored" },
+  { name: "AWS", iconClass: "devicons devicons-aws" },
+];
 ---
 
 <section
@@ -27,30 +58,30 @@ const stats = [
 
       <!-- Biography & Signature (Right Column) -->
       <div class="md:col-span-9 space-y-8 max-w-4xl">
-          <SplitText
-            as="p"
-            trigger="scrub"
-            class="font-body text-base sm:text-lg md:text-[1.3rem] leading-[2] text-white/15"
-          >
-            I am a technology professional who bridges the gap between design
-            and engineering. With over 8 years of experience building scalable,
-            high-performing applications, I specialize in crafting intuitive
-            digital products that address real-world business challenges and
-            deliver measurable impact.
-          </SplitText>
-          <SplitText
-            as="p"
-            trigger="scrub"
-            class="font-body text-base sm:text-lg md:text-[1.3rem] leading-[2] text-white/15"
-          >
-            Throughout my career, I have worked across the full software
-            development lifecycle—translating complex requirements into elegant
-            solutions, collaborating closely with designers, product managers,
-            and stakeholders, and ensuring technical excellence from
-            architecture to deployment. I bring a strong focus on clean code
-            principles, maintainable systems, and performance-driven
-            development, while never losing sight of the end user.
-          </SplitText>
+        <SplitText
+          as="p"
+          trigger="scrub"
+          class="font-body text-base sm:text-lg md:text-[1.3rem] leading-[2] text-white/15"
+        >
+          I am a technology professional who bridges the gap between design and
+          engineering. With over 8 years of experience building scalable,
+          high-performing applications, I specialize in crafting intuitive
+          digital products that address real-world business challenges and
+          deliver measurable impact.
+        </SplitText>
+        <SplitText
+          as="p"
+          trigger="scrub"
+          class="font-body text-base sm:text-lg md:text-[1.3rem] leading-[2] text-white/15"
+        >
+          Throughout my career, I have worked across the full software
+          development lifecycle—translating complex requirements into elegant
+          solutions, collaborating closely with designers, product managers, and
+          stakeholders, and ensuring technical excellence from architecture to
+          deployment. I bring a strong focus on clean code principles,
+          maintainable systems, and performance-driven development, while never
+          losing sight of the end user.
+        </SplitText>
 
         <!-- Handwritten Signature & Name -->
         <div class="pt-6 space-y-3">
@@ -101,5 +132,148 @@ const stats = [
         }
       </div>
     </div>
+
+    <!-- Technologies Infinite Slideshow (Marquee) -->
+    <div
+      class="w-full overflow-hidden py-4 border-t border-b border-zinc-900/60 bg-zinc-950/5"
+    >
+      <div
+        class="animate-marquee flex gap-0 hover:[animation-play-state:paused] transition-all duration-300"
+      >
+        <!-- Loop 1: Original List -->
+        <div class="flex gap-4 pr-6 shrink-0">
+          {
+            technologies.map((tech) => {
+              return (
+                <div class="flex items-center gap-2.5 px-6 py-3 border border-zinc-800/80 bg-zinc-950 text-white rounded-full font-body text-xs font-bold tracking-wide select-none shadow-sm transition-all duration-300 hover:scale-105 hover:border-zinc-700 cursor-pointer whitespace-nowrap">
+                  <i class={`${tech.iconClass} text-md`} />
+                  <span>{tech.name}</span>
+                </div>
+              );
+            })
+          }
+        </div>
+
+        <!-- Loop 2: Duplicate List -->
+        <div class="flex gap-4 pr-6 shrink-0" aria-hidden="true">
+          {
+            technologies.map((tech) => {
+              return (
+                <div class="flex items-center gap-2.5 px-6 py-3 border border-zinc-800/80 bg-zinc-950 text-white rounded-full font-body text-xs font-bold tracking-wide select-none shadow-sm transition-all duration-300 hover:scale-105 hover:border-zinc-700 cursor-pointer whitespace-nowrap">
+                  <i class={`${tech.iconClass} text-md`} />
+                  <span>{tech.name}</span>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  @import "https://cdn.jsdelivr.net/npm/devicons@2.0.1/dist/devicons.css";
+
+  /* Brand colors for devicons */
+  .devicons-tensorflow {
+    color: #ff6f00 !important;
+  }
+  .devicons-openai {
+    color: #74aa9c !important;
+  }
+  .devicons-pytorch {
+    color: #ee4c2c !important;
+  }
+  .devicons-pandas {
+    color: #150458 !important;
+  }
+  .devicons-redis {
+    color: #dc382d !important;
+  }
+  .devicons-langchain {
+    color: #38c3b1 !important;
+  }
+  .devicons-hugging-face {
+    color: #ffd21e !important;
+  }
+  .devicons-n8n {
+    color: #ff6d5a !important;
+  }
+  .devicons-python {
+    color: #3776ab !important;
+  }
+  .devicons-c-plusplus {
+    color: #00599c !important;
+  }
+  .devicons-postgresql {
+    color: #4169e1 !important;
+  }
+  .devicons-typescript {
+    color: #3178c6 !important;
+  }
+  .devicons-nestjs {
+    color: #e0234e !important;
+  }
+  .devicons-flask {
+    color: #ffffff !important;
+  }
+  .devicons-fastapi {
+    color: #059669 !important;
+  }
+  .devicons-nodejs {
+    color: #339933 !important;
+  }
+  .devicons-express {
+    color: #ffffff !important;
+  }
+  .devicons-tailwind {
+    color: #06b6d4 !important;
+  }
+  .devicons-react {
+    color: #61dafb !important;
+  }
+  .devicons-nextjs {
+    color: #ffffff !important;
+  }
+  .devicons-greensock {
+    color: #88ce02 !important;
+  }
+  .devicons-threejs {
+    color: #ffffff !important;
+  }
+  .devicons-visual-studio-code {
+    color: #007acc !important;
+  }
+  .devicons-jupyter {
+    color: #f37626 !important;
+  }
+  .devicons-git {
+    color: #f05032 !important;
+  }
+  .devicons-docker {
+    color: #2496ed !important;
+  }
+  .devicons-aws {
+    color: #ff9900 !important;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+</style>
