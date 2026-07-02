@@ -1,4 +1,6 @@
 ---
+import SplitTextHover from "./SplitTextHover.astro";
+
 const socials = [
   {
     name: "GitHub",
@@ -37,7 +39,7 @@ const email = "avi052001@gmail.com";
         <h3
           class="font-heading text-4xl font-extrabold uppercase leading-tight text-white sm:text-5xl md:text-6xl"
         >
-          LET'S CREATE THE NEXT GENERATION.
+          LET'S WORK ON COOL PROJECTS TOGETHER.
         </h3>
         <p class="font-body text-base text-zinc-400 max-w-md">
           I am currently open to full-time roles, contract opportunities, and
@@ -96,9 +98,9 @@ const email = "avi052001@gmail.com";
 
             <a
               href={`mailto:${email}`}
-              class="border border-white bg-white px-5 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-black hover:bg-black hover:text-white hover:border-white transition-all duration-300"
+              class="border border-white bg-white px-5 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-black hover:bg-black hover:text-white hover:border-white transition-all duration-300 group"
             >
-              Send Mail
+              <SplitTextHover text="Send Mail" />
             </a>
           </div>
         </div>
@@ -127,20 +129,24 @@ const email = "avi052001@gmail.com";
 
     <!-- Footer Links and Copyright -->
     <div
-      class="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-8"
+      class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center"
     >
       <!-- Copyright Info -->
-      <div class="space-y-2">
+      <div class="md:text-left">
         <p class="text-xs text-zinc-500 uppercase tracking-widest">
           &copy; {new Date().getFullYear()} PORTFOLIO. ALL RIGHTS RESERVED.
         </p>
+      </div>
+
+      <!-- Made with Love -->
+      <div>
         <p class="text-[10px] text-zinc-600 uppercase tracking-wider">
           Built with ❤️ by Kshitiz
         </p>
       </div>
 
       <!-- Scroll Back to Top -->
-      <div class="flex items-center">
+      <div class="flex items-center justify-center md:justify-end">
         <!-- Back to Top Button -->
         <button
           id="back-to-top"

@@ -1,5 +1,6 @@
 ---
 import SplitText from './SplitText.astro';
+import SplitTextHover from './SplitTextHover.astro';
 ---
 
 <section
@@ -48,9 +49,9 @@ import SplitText from './SplitText.astro';
     <!-- Call to Action -->
     <a
       href="#contact"
-      class="inline-block border border-white bg-white px-6 py-3.5 text-sm font-bold text-black rounded-xl hover:bg-black hover:text-white transition-all duration-300 shadow-md shadow-white/5"
+      class="inline-block group border border-white bg-white px-6 py-3.5 text-sm font-bold text-black rounded-xl hover:bg-black hover:text-white transition-all duration-300 shadow-md shadow-white/5"
     >
-      Book a call
+      <SplitTextHover text="Book a call" />
     </a>
 
   </div>

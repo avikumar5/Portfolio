@@ -1,4 +1,6 @@
 ---
+import SplitTextHover from './SplitTextHover.astro';
+
 const navLinks = [
   { href: '#about', label: 'About me' },
   { href: '#experience', label: 'Experience' },
@@ -14,9 +16,9 @@ const navLinks = [
     {navLinks.map(link => (
       <a 
         href={link.href} 
-        class="nav-link relative py-1 text-sm font-semibold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors duration-200"
+        class="nav-link group relative py-1 text-sm font-semibold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors duration-200"
       >
-        {link.label}
+        <SplitTextHover text={link.label} />
         <!-- Active Section Underline (Navy Blue #000080) -->
         <span class="active-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-[2px] bg-[#000080] scale-x-0 transition-transform duration-300 ease-out origin-center"></span>
       </a>
@@ -52,9 +54,9 @@ const navLinks = [
     {navLinks.map(link => (
       <a 
         href={link.href} 
-        class="mobile-nav-link font-heading text-3xl font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors duration-200"
+        class="mobile-nav-link group font-heading text-3xl font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors duration-200"
       >
-        {link.label}
+        <SplitTextHover text={link.label} />
       </a>
     ))}
   </nav>
