@@ -1,0 +1,109 @@
+---
+// src/components/CustomCursor.astro
+---
+
+<div
+  class="custom-cursor-dot fixed pointer-events-none rounded-full bg-white z-[9999] opacity-0 w-2.5 h-2.5 top-0 left-0"
+>
+</div>
+<div
+  class="custom-cursor-ring fixed pointer-events-none rounded-full border border-white/20 z-[9998] opacity-0 w-9 h-9 top-0 left-0"
+>
+</div>
+
+<style is:global>
+  @media (pointer: fine) {
+    body,
+    html,
+    a,
+    button,
+    select,
+    input,
+    textarea,
+    [role="button"],
+    .cursor-pointer {
+      cursor: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const dot = document.querySelector(".custom-cursor-dot") as HTMLElement;
+
+  if (dot) {
+    // Only enable cursor on devices with fine pointer (mouse/trackpad)
+    if (window.matchMedia("(pointer: fine)").matches) {
+      // Make them visible
+      dot.style.opacity = "1";
+
+      const cursorCoords = { x: 0, y: 0 };
+
+      // Initialize half-sizes (radii) of the elements to offset centering
+      const dotRadius = 5; // 10px / 2
+
+      // Track mouse position
+      window.addEventListener("mousemove", (e) => {
+        cursorCoords.x = e.clientX;
+        cursorCoords.y = e.clientY;
+      });
+
+      // Quick setters for optimal animation performance
+      const setDotX = gsap.quickTo(dot, "x", {
+        duration: 0.08,
+        ease: "power3.out",
+      });
+      const setDotY = gsap.quickTo(dot, "y", {
+        duration: 0.08,
+        ease: "power3.out",
+      });
+      // Run update loop using GSAP ticker
+      gsap.ticker.add(() => {
+        setDotX(cursorCoords.x - dotRadius);
+        setDotY(cursorCoords.y - dotRadius);
+      });
+
+      // React to user interactive hovers
+      const updateHoverTargets = () => {
+        const interactives = document.querySelectorAll(
+          "a, button, [role='button'], .cursor-pointer, input, select, textarea, .tech-pill, canvas",
+        );
+
+        interactives.forEach((el) => {
+          // Prevent multiple listeners
+          el.removeEventListener("mouseenter", onMouseEnter);
+          el.removeEventListener("mouseleave", onMouseLeave);
+
+          el.addEventListener("mouseenter", onMouseEnter);
+          el.addEventListener("mouseleave", onMouseLeave);
+        });
+      };
+
+      const onMouseEnter = () => {
+        gsap.to(dot, {
+          scale: 0.6,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      const onMouseLeave = () => {
+        gsap.to(dot, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      // Set up initial listeners
+      updateHoverTargets();
+
+      // Keep dynamic elements (like newly loaded items) working
+      const observer = new MutationObserver(() => {
+        updateHoverTargets();
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+  }
+</script>
