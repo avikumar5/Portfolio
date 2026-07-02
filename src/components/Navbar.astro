@@ -181,10 +181,15 @@ const navLinks = [
       if (!targetId || targetId === '#') return;
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        const lenis = (window as any).lenis;
+        if (lenis) {
+          lenis.scrollTo(targetElement);
+        } else {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       }
     });
   });

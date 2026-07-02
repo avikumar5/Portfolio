@@ -1,0 +1,35 @@
+---
+---
+
+<script>
+  import Lenis from 'lenis';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  // Register GSAP ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Initialize Lenis
+  const lenis = new Lenis();
+  (window as any).lenis = lenis;
+
+  // Sync ScrollTrigger with Lenis
+  lenis.on('scroll', ScrollTrigger.update);
+
+  // Integrate with GSAP ticker for smoother raf sync
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 500);
+  });
+
+  // Disable lag smoothing in GSAP to prevent visual jumping
+  gsap.ticker.lagSmoothing(0);
+
+  // Update scroll progress bar on scroll
+  lenis.on('scroll', (e) => {
+    const scrolled = e.limit > 0 ? (e.scroll / e.limit) * 100 : 0;
+    const progressLine = document.getElementById('scroll-progress-line');
+    if (progressLine) {
+      progressLine.style.width = `${scrolled}%`;
+    }
+  });
+</script>

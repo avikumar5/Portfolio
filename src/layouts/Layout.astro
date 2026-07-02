@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import SmoothScroll from '../components/SmoothScroll.astro';
 
 interface Props {
 	title?: string;
@@ -13,7 +14,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,16 +39,6 @@ const {
 			<div id="scroll-progress-line" class="h-full w-0 bg-white transition-all duration-75 ease-out"></div>
 		</div>
 
-		<script>
-			window.addEventListener('scroll', () => {
-				const winScroll = window.scrollY || document.documentElement.scrollTop;
-				const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-				const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-				const progressLine = document.getElementById('scroll-progress-line');
-				if (progressLine) {
-					progressLine.style.width = `${scrolled}%`;
-				}
-			});
-		</script>
+		<SmoothScroll />
 	</body>
 </html>
