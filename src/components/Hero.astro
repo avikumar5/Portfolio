@@ -1,6 +1,6 @@
 ---
-import SplitText from './SplitText.astro';
-import SplitTextHover from './SplitTextHover.astro';
+import SplitText from "./SplitText.astro";
+import SplitTextHover from "./SplitTextHover.astro";
 ---
 
 <section
@@ -34,7 +34,10 @@ import SplitTextHover from './SplitTextHover.astro';
       />
       Kshitiz Kumar <br />
       <span class="typewriter-container inline-flex items-center">
-        <span class="typewriter-text text-white">Full-Stack Developer</span><span class="typewriter-cursor select-none ml-1 inline-block w-[3px] h-[0.85em] bg-white align-middle"></span>
+        <span class="typewriter-text text-white">Full-Stack Developer</span
+        ><span
+          class="typewriter-cursor select-none ml-1 inline-block w-[3px] h-[0.85em] bg-white align-middle"
+        ></span>
       </span>
     </SplitText>
 
@@ -55,7 +58,6 @@ import SplitTextHover from './SplitTextHover.astro';
     >
       <SplitTextHover text="Book a call" />
     </a>
-
   </div>
 </section>
 
@@ -64,53 +66,62 @@ import SplitTextHover from './SplitTextHover.astro';
     animation: blink 0.8s step-end infinite;
   }
   @keyframes blink {
-    from, to { opacity: 1; }
-    50% { opacity: 0; }
+    from,
+    to {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-  import { TextPlugin } from 'gsap/TextPlugin';
+  import { gsap } from "gsap";
+  import { TextPlugin } from "gsap/TextPlugin";
 
   gsap.registerPlugin(TextPlugin);
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const textEl = document.querySelector('.typewriter-text');
+  document.addEventListener("DOMContentLoaded", () => {
+    const textEl = document.querySelector(".typewriter-text");
     if (!textEl) return;
 
     const startTypewriter = () => {
       const tl = gsap.timeline({ repeat: -1 });
-      
+
       tl.to(textEl, {
         duration: 0.8,
         text: "",
         ease: "none",
-        delay: 1.5
+        delay: 1.5,
       })
-      .to(textEl, {
-        duration: 0.8,
-        text: "Ai/Ml Developer",
-        ease: "none"
-      })
-      .to(textEl, {
-        duration: 0.8,
-        text: "",
-        ease: "none",
-        delay: 1.5
-      })
-      .to(textEl, {
-        duration: 0.8,
-        text: "Full-Stack Developer",
-        ease: "none"
-      });
+        .to(textEl, {
+          duration: 0.8,
+          text: "AI/ML Developer",
+          ease: "none",
+        })
+        .to(textEl, {
+          duration: 0.8,
+          text: "",
+          ease: "none",
+          delay: 1.5,
+        })
+        .to(textEl, {
+          duration: 0.8,
+          text: "Full-Stack Developer",
+          ease: "none",
+        });
     };
 
-    const preloader = document.getElementById('preloader');
-    if (preloader && preloader.style.display !== 'none') {
-      window.addEventListener('preloader-complete', () => {
-        setTimeout(startTypewriter, 1300);
-      }, { once: true });
+    const preloader = document.getElementById("preloader");
+    if (preloader && preloader.style.display !== "none") {
+      window.addEventListener(
+        "preloader-complete",
+        () => {
+          setTimeout(startTypewriter, 1300);
+        },
+        { once: true },
+      );
     } else {
       setTimeout(startTypewriter, 1200);
     }

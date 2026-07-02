@@ -1,83 +1,395 @@
 ---
 const techCategories = [
   {
-    title: 'Frontend Architecture',
+    title: 'AI & GenAI',
     skills: [
-      { name: 'Astro', level: 'Expert' },
-      { name: 'React / Next.js', level: 'Expert' },
-      { name: 'TypeScript', level: 'Expert' },
-      { name: 'Tailwind CSS', level: 'Expert' },
-      { name: 'JavaScript (ES6+)', level: 'Expert' },
-      { name: 'HTML5 & CSS3', level: 'Expert' }
+      { name: 'ML', icon: 'fa-solid fa-brain' },
+      { name: 'LLM', icon: 'fa-solid fa-comments' },
+      { name: 'AI-Agents', icon: 'fa-solid fa-robot' },
+      { name: 'RAG', icon: 'fa-solid fa-magnifying-glass-chart' },
+      { name: 'Vector DBs', icon: 'fa-solid fa-database' },
+      { name: 'Langchain', icon: 'fa-solid fa-link' },
+      { name: 'HuggingFace', icon: 'fa-regular fa-face-smile' },
+      { name: 'n8n', icon: 'fa-solid fa-diagram-project' }
     ]
   },
   {
-    title: 'Backend & Data',
+    title: 'Languages',
     skills: [
-      { name: 'Node.js', level: 'Intermediate' },
-      { name: 'Express / Fastify', level: 'Intermediate' },
-      { name: 'GraphQL', level: 'Intermediate' },
-      { name: 'PostgreSQL', level: 'Intermediate' },
-      { name: 'MongoDB', level: 'Intermediate' },
-      { name: 'REST APIs', level: 'Expert' }
+      { name: 'Python', icon: 'fa-brands fa-python' },
+      { name: 'C++', icon: 'fa-solid fa-terminal' },
+      { name: 'SQL', icon: 'fa-solid fa-database' },
+      { name: 'JavaScript/Typescript', icon: 'fa-brands fa-js' }
     ]
   },
   {
-    title: 'Workflow & Tools',
+    title: 'Backend Development',
     skills: [
-      { name: 'Git & GitHub', level: 'Expert' },
-      { name: 'Vite / Webpack', level: 'Expert' },
-      { name: 'Docker', level: 'Beginner' },
-      { name: 'Figma', level: 'Intermediate' },
-      { name: 'Linux / Bash', level: 'Intermediate' },
-      { name: 'CI/CD Pipelines', level: 'Intermediate' }
+      { name: 'Nest.js', icon: 'fa-solid fa-cubes' },
+      { name: 'Flask/FastAPI', icon: 'fa-solid fa-network-wired' },
+      { name: 'Node.js', icon: 'fa-brands fa-node-js' },
+      { name: 'Express.js', icon: 'fa-solid fa-server' }
+    ]
+  },
+  {
+    title: 'Frontend Development',
+    skills: [
+      { name: 'Tailwind', icon: 'fa-solid fa-wind' },
+      { name: 'React', icon: 'fa-brands fa-react' },
+      { name: 'Next.js', icon: 'fa-solid fa-globe' },
+      { name: 'GSAP', icon: 'fa-solid fa-wand-magic-sparkles' },
+      { name: 'Three.js', icon: 'fa-solid fa-cube' }
+    ]
+  },
+  {
+    title: 'Developer Tools',
+    skills: [
+      { name: 'VS Code', icon: 'fa-solid fa-code' },
+      { name: 'Colab', icon: 'fa-solid fa-infinity' },
+      { name: 'Git', icon: 'fa-brands fa-git-alt' },
+      { name: 'Jupyter notebook', icon: 'fa-solid fa-book' },
+      { name: 'Docker', icon: 'fa-brands fa-docker' },
+      { name: 'AWS', icon: 'fa-brands fa-aws' }
     ]
   }
+];
+
+const allSkills = techCategories.flatMap(category => category.skills);
+
+// Reference solid colors palette (from the user-provided image):
+// 1. Deep Slate Blue: #2e435a
+// 2. Clay Terracotta: #c47c51
+// 3. Soft Alabaster/Cream: #e6e2d8 (dark text)
+// 4. Ochre/Warm Gold: #e8bd7f (dark text)
+// 5. Off-Black/Charcoal: #2c2d2f
+const pillColors = [
+  { bg: 'bg-[#2e435a]', text: 'text-white', border: 'border-[#2e435a]' },
+  { bg: 'bg-[#c47c51]', text: 'text-white', border: 'border-[#c47c51]' },
+  { bg: 'bg-[#e6e2d8]', text: 'text-[#1a1a1a]', border: 'border-[#e6e2d8]' },
+  { bg: 'bg-[#e8bd7f]', text: 'text-[#1a1a1a]', border: 'border-[#e8bd7f]' },
+  { bg: 'bg-[#2c2d2f]', text: 'text-white', border: 'border-[#2c2d2f]' }
 ];
 ---
 
 <section id="technologies" class="border-b border-zinc-900 px-6 py-20 md:px-12 md:py-32">
-  <div class="mx-auto max-w-[1600px]">
+  <div class="mx-auto max-w-[1600px] space-y-12">
 
-    <!-- Section Identifier -->
-    <div class="mb-12 flex items-center justify-between border-b border-zinc-900 pb-4">
-      <h2 class="font-heading text-xs font-bold uppercase tracking-widest text-zinc-500">03 / TECHNICAL SKILLS</h2>
-      <span class="text-xs text-zinc-600 uppercase tracking-widest font-mono">Expertise</span>
+    <!-- Section Identifier & Headers -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between border-b border-zinc-900 pb-4">
+        <h2 class="font-heading text-xs font-bold uppercase tracking-widest text-zinc-500">03 / TECHNICAL SKILLS</h2>
+        <span class="text-xs text-zinc-600 uppercase tracking-widest font-mono">Interactive Stack</span>
+      </div>
+      <div class="max-w-3xl space-y-3">
+        <h3 class="font-heading text-3xl font-bold uppercase tracking-tight text-white md:text-5xl">
+          Tech Stack & Tools
+        </h3>
+        <p class="text-sm md:text-base text-zinc-400 leading-relaxed font-sans">
+          An interactive showcase of the technologies, frameworks, and tools I use to build robust, performant, and premium web applications. Grab and fling the elements to interact.
+        </p>
+      </div>
     </div>
 
-    <!-- Category Grids -->
-    <div class="space-y-16">
-      {techCategories.map(category => (
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          
-          <!-- Category Header -->
-          <div class="lg:col-span-4">
-            <h3 class="font-heading text-xl font-bold uppercase tracking-tight text-white md:text-2xl">
-              {category.title}
-            </h3>
-          </div>
+    <!-- Full-Width Interactive Physics Area -->
+    <div id="pills-playground" class="relative w-full h-[550px] bg-zinc-950/10 border border-zinc-900/60 rounded-sm overflow-hidden select-none">
+      
+      <!-- The floating HTML pills (rendered behind the canvas, pointer-events-none) -->
+      <div id="html-pills-container" class="absolute inset-0 z-10 pointer-events-none opacity-0 transition-opacity duration-700">
+        {allSkills.map((skill, index) => {
+          const color = pillColors[index % pillColors.length];
+          return (
+            <div 
+              class={`tech-pill absolute px-8 py-4 border rounded-full flex items-center justify-center gap-3 font-body text-base font-bold tracking-wide select-none ${color.bg} ${color.text} ${color.border} shadow-md`}
+              data-name={skill.name}
+            >
+              <i class={`${skill.icon} text-base opacity-90`}></i>
+              <span>{skill.name}</span>
+            </div>
+          );
+        })}
+      </div>
 
-          <!-- Cards Grid -->
-          <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {category.skills.map(skill => (
-              <div class="border border-zinc-900 bg-zinc-950/40 p-4 md:p-6 group hover:border-white transition-all duration-300">
-                <div class="flex items-center justify-between">
-                  <span class="font-heading text-sm font-semibold uppercase tracking-wide text-white group-hover:text-white transition-colors duration-200">
-                    {skill.name}
-                  </span>
-                  <span class="text-[9px] uppercase tracking-widest text-zinc-600 font-mono group-hover:text-zinc-400 transition-colors duration-200">
-                    {skill.level}
-                  </span>
-                </div>
-                <!-- Custom indicator line -->
-                <div class="mt-4 h-[1px] w-full bg-zinc-900 group-hover:bg-zinc-800 transition-colors duration-300"></div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      ))}
+      <!-- Canvas element will be dynamically appended here by Matter.js (on top to receive pointer inputs) -->
+      <div id="canvas-container" class="absolute inset-0 z-20 cursor-grab active:cursor-grabbing"></div>
     </div>
 
   </div>
 </section>
+
+<script>
+  import Matter from 'matter-js';
+
+  const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Query, Body } = Matter;
+
+  // DOM references
+  const section = document.getElementById('technologies');
+  const playground = document.getElementById('pills-playground');
+  const canvasContainer = document.getElementById('canvas-container');
+  const htmlContainer = document.getElementById('html-pills-container');
+  const pillElements = document.querySelectorAll('.tech-pill') as NodeListOf<HTMLElement>;
+
+  if (section && playground && canvasContainer && htmlContainer && pillElements.length > 0) {
+    let engine: any;
+    let render: any;
+    let runner: any;
+    let bodies: any[] = [];
+    let ground: any, leftWall: any, rightWall: any, ceiling: any;
+    let isInitialized = false;
+    let containerWidth = playground.clientWidth;
+    let containerHeight = playground.clientHeight;
+    const wallThickness = 120;
+
+    // Initialize physics
+    function initPhysics() {
+      if (isInitialized) return;
+
+      containerWidth = playground!.clientWidth;
+      containerHeight = playground!.clientHeight;
+
+      // Create engine
+      engine = Engine.create({
+        gravity: { y: 0.8, x: 0 }
+      });
+
+      // Create renderer
+      render = Render.create({
+        element: canvasContainer!,
+        engine: engine,
+        options: {
+          width: containerWidth,
+          height: containerHeight,
+          background: 'transparent',
+          wireframes: false
+        }
+      });
+
+      Render.run(render);
+
+      // Create runner
+      runner = Runner.create();
+      Runner.run(runner, engine);
+
+      // Create static boundary walls
+      updateBoundaries();
+
+      // Create physical bodies representing HTML pills
+      createPillBodies();
+
+      // Setup pointer interactivity (only on desktop to prevent mobile scroll hijacking)
+      const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+      if (isFinePointer) {
+        setupInteractivity();
+      }
+
+      // CSS-Physics coordinates binding loop
+      Matter.Events.on(engine, 'afterUpdate', () => {
+        bodies.forEach(body => {
+          const el = body.plugin.element;
+          if (el) {
+            const { x, y } = body.position;
+            const angle = body.angle;
+            // Center-align the absolute HTML pill on top of the Matter.js rigid body coordinates
+            el.style.transform = `translate3d(${x - body.width / 2}px, ${y - body.height / 2}px, 0) rotate(${angle}rad)`;
+          }
+        });
+      });
+
+      // Reveal the HTML container once positions are bound
+      htmlContainer!.classList.remove('opacity-0');
+      isInitialized = true;
+    }
+
+    // Helper: update boundaries based on container dimensions
+    function updateBoundaries() {
+      if (ground) Composite.remove(engine.world, [ground, leftWall, rightWall, ceiling]);
+
+      // Draw boundaries slightly outside the view border to make sure walls are invisible
+      ground = Bodies.rectangle(containerWidth / 2, containerHeight + wallThickness / 2, containerWidth + 1000, wallThickness, { 
+        isStatic: true,
+        render: { visible: false }
+      });
+      leftWall = Bodies.rectangle(-wallThickness / 2, containerHeight / 2, wallThickness, containerHeight + 1000, { 
+        isStatic: true,
+        render: { visible: false }
+      });
+      rightWall = Bodies.rectangle(containerWidth + wallThickness / 2, containerHeight / 2, wallThickness, containerHeight + 1000, { 
+        isStatic: true,
+        render: { visible: false }
+      });
+      ceiling = Bodies.rectangle(containerWidth / 2, -wallThickness / 2, containerWidth + 1000, wallThickness, { 
+        isStatic: true,
+        render: { visible: false }
+      });
+
+      Composite.add(engine.world, [ground, leftWall, rightWall, ceiling]);
+    }
+
+    // Helper: create physical bodies matching the HTML dimensions
+    function createPillBodies() {
+      // Clear previous if any
+      if (bodies.length > 0) {
+        Composite.remove(engine.world, bodies);
+        bodies = [];
+      }
+
+      pillElements.forEach((el, index) => {
+        const width = el.offsetWidth;
+        const height = el.offsetHeight;
+
+        // Spread spawn coordinates across the top of the container
+        const x = Math.random() * (containerWidth - width) + width / 2;
+        // Stagger spawn heights inside the viewport
+        const y = 40 + (index * 16);
+
+        const body = Bodies.rectangle(x, y, width, height, {
+          restitution: 0.55,  // Moderate bounciness
+          friction: 0.08,    // High slide
+          frictionAir: 0.02, // Air resistance
+          // Chamfer rounds the physics body vertices to match CSS border-radius
+          chamfer: { radius: height / 2 },
+          plugin: { element: el },
+          render: {
+            visible: false
+          }
+        });
+
+        // Store dimensions on the body for coordinate translation
+        body.width = width;
+        body.height = height;
+
+        // Position initial styles
+        el.style.position = 'absolute';
+        el.style.left = '0';
+        el.style.top = '0';
+        el.style.transformOrigin = 'center center';
+
+        bodies.push(body);
+      });
+
+      Composite.add(engine.world, bodies);
+    }
+
+    // Helper: handle mouse dragging & desktop hover feedback
+    function setupInteractivity() {
+      const mouse = Mouse.create(render.canvas);
+      
+      const mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+          stiffness: 0.18,
+          render: { visible: false }
+        }
+      });
+
+      Composite.add(engine.world, mouseConstraint);
+
+      // Disable mousewheel event interception to preserve Lenis scrolling
+      mouseConstraint.mouse.element.removeEventListener('mousewheel', mouseConstraint.mouse.wheel || mouseConstraint.mouse.mousewheel);
+      mouseConstraint.mouse.element.removeEventListener('DOMMouseScroll', mouseConstraint.mouse.wheel || mouseConstraint.mouse.mousewheel);
+
+      // Update cursor and pill hover styles when hovering over draggable pills
+      Matter.Events.on(mouseConstraint, 'mousemove', () => {
+        const hoveredBodies = Query.point(bodies, mouse.position);
+        const isHovering = hoveredBodies.length > 0;
+        canvasContainer!.style.cursor = isHovering ? 'grab' : 'default';
+
+        // Clear hover class from all pills
+        pillElements.forEach(el => el.classList.remove('hovered'));
+
+        // Highlight hovered pill
+        hoveredBodies.forEach(body => {
+          const el = body.plugin.element;
+          if (el) el.classList.add('hovered');
+        });
+      });
+
+      Matter.Events.on(mouseConstraint, 'startdrag', () => {
+        canvasContainer!.style.cursor = 'grabbing';
+      });
+
+      Matter.Events.on(mouseConstraint, 'enddrag', () => {
+        pillElements.forEach(el => el.classList.remove('hovered'));
+        const isHovering = Query.point(bodies, mouse.position).length > 0;
+        canvasContainer!.style.cursor = isHovering ? 'grab' : 'default';
+      });
+
+      // Clear hover states when mouse leaves the playground area
+      playground!.addEventListener('mouseleave', () => {
+        pillElements.forEach(el => el.classList.remove('hovered'));
+      });
+    }
+
+    // Handle Window resizing
+    let resizeTimer: any;
+    window.addEventListener('resize', () => {
+      if (!isInitialized) return;
+      
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        containerWidth = playground!.clientWidth;
+        containerHeight = playground!.clientHeight;
+
+        // Update renderer canvas dimensions
+        render.canvas.width = containerWidth;
+        render.canvas.height = containerHeight;
+        render.options.width = containerWidth;
+        render.options.height = containerHeight;
+
+        // Reposition boundaries
+        updateBoundaries();
+
+        // Nudge any out-of-bound pills back inside
+        bodies.forEach(body => {
+          let { x, y } = body.position;
+          const w = body.width;
+          const h = body.height;
+
+          let boundaryChanged = false;
+          if (x < w / 2) { x = w / 2; boundaryChanged = true; }
+          if (x > containerWidth - w / 2) { x = containerWidth - w / 2; boundaryChanged = true; }
+          if (y > containerHeight - h / 2) { y = containerHeight - h / 2; boundaryChanged = true; }
+
+          if (boundaryChanged) {
+            Body.setPosition(body, { x, y });
+            Body.setVelocity(body, { x: 0, y: 0 });
+          }
+        });
+      }, 150);
+    });
+
+    // Performance Optimization: IntersectionObserver to only run physics when in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Initialize if first time
+          if (!isInitialized) {
+            initPhysics();
+          } else {
+            // Wake up engine runner
+            Runner.run(runner, engine);
+          }
+        } else {
+          // Stop runner to save CPU cycles when scrolled past
+          if (isInitialized && runner) {
+            Runner.stop(runner);
+          }
+        }
+      });
+    }, { 
+      threshold: 0.3,
+      rootMargin: "-100px 0px"
+    });
+
+    observer.observe(section);
+  }
+</script>
+
+<style>
+  .tech-pill {
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .tech-pill.hovered {
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.12) !important;
+  }
+</style>
