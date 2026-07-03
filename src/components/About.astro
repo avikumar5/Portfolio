@@ -4,7 +4,7 @@ import SplitText from "./SplitText.astro";
 const stats = [
   { value: "1 +", label: "Years of experience" },
   { value: "10 +", label: "Projects Completed" },
-  { value: "~20%", label: "LLM cost cut" },
+  { value: "~50%", label: "SEO/GEO Enhanced Website" },
   { value: "5+", label: "Client projects" },
 ];
 
@@ -121,7 +121,10 @@ const technologies = [
             <div
               class={`px-0 sm:px-6 lg:px-8 ${index > 0 ? "lg:border-l border-[#525151]" : ""} ${index === 1 || index === 3 ? "sm:border-l border-[#525151]" : ""} ${index === 2 ? "sm:border-l-0 lg:border-l border-[#525151]" : ""} space-y-2`}
             >
-              <div class="font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <div 
+                class="stat-value font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tight"
+                data-target-val={stat.value}
+              >
                 {stat.value}
               </div>
               <div class="text-xs uppercase tracking-wider text-zinc-500 font-semibold font-body">
@@ -277,3 +280,57 @@ const technologies = [
     animation-play-state: paused;
   }
 </style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function parseStatValue(valStr: string) {
+    const match = valStr.match(/^([^0-9]*)([0-9]+)([^0-9]*)$/);
+    if (match) {
+      return {
+        prefix: match[1],
+        target: parseInt(match[2], 10),
+        suffix: match[3]
+      };
+    }
+    return null;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const statElements = document.querySelectorAll(".stat-value");
+
+    statElements.forEach((el) => {
+      const targetValStr = el.getAttribute("data-target-val");
+      if (!targetValStr) return;
+
+      const parsed = parseStatValue(targetValStr);
+      if (!parsed) return;
+
+      const startVal = parsed.target > 1 ? 1 : 0;
+      const obj = { val: startVal };
+
+      // Set initial value
+      el.textContent = parsed.prefix + startVal + parsed.suffix;
+
+      gsap.to(obj, {
+        val: parsed.target,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        },
+        duration: 1.5,
+        ease: "power2.out",
+        onUpdate: () => {
+          el.textContent = parsed.prefix + Math.floor(obj.val) + parsed.suffix;
+        },
+        onComplete: () => {
+          el.textContent = targetValStr;
+        }
+      });
+    });
+  });
+</script>
