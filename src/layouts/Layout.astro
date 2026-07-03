@@ -1,16 +1,17 @@
 ---
-import '../styles/global.css';
-import SmoothScroll from '../components/SmoothScroll.astro';
-import CustomCursor from '../components/CustomCursor.astro';
+import "../styles/global.css";
+import SmoothScroll from "../components/SmoothScroll.astro";
+import CustomCursor from "../components/CustomCursor.astro";
+import MusicWidget from "../components/MusicWidget.astro";
 
 interface Props {
 	title?: string;
 	description?: string;
 }
 
-const { 
-	title = "Portfolio | Minimalist Designer & Developer", 
-	description = "A responsive single-page portfolio styled in minimalist dark mode, showcasing work experience, technologies, and achievements."
+const {
+	title = "Portfolio | Minimalist Designer & Developer",
+	description = "A responsive single-page portfolio styled in minimalist dark mode, showcasing work experience, technologies, and achievements.",
 } = Astro.props;
 ---
 
@@ -21,10 +22,16 @@ const {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		
+
 		<!-- FontAwesome CDN -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-		
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+			integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+
 		<!-- SEO Meta Tags -->
 		<title>{title}</title>
 		<meta name="description" content={description} />
@@ -37,10 +44,15 @@ const {
 
 		<!-- Scroll Progress Bar -->
 		<div class="fixed bottom-0 left-0 right-0 z-50 h-[3px] bg-zinc-950">
-			<div id="scroll-progress-line" class="h-full w-0 bg-white transition-all duration-75 ease-out"></div>
+			<div
+				id="scroll-progress-line"
+				class="h-full w-0 bg-white transition-all duration-75 ease-out"
+			>
+			</div>
 		</div>
 
 		<SmoothScroll />
 		<CustomCursor />
+		<MusicWidget />
 	</body>
 </html>

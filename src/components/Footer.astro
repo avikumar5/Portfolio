@@ -40,13 +40,56 @@ const email = "avi052001@gmail.com";
           Focused to building the future of immersive web.
         </p>
       </div>
-      <div>
+      <div class="flex items-center gap-3 sm:gap-4">
         <a
           href={`mailto:${email}`}
           class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium tracking-tight text-white hover:text-zinc-400 transition-colors duration-300 select-all"
         >
           {email}
         </a>
+        <button
+          id="copy-email-btn"
+          class="relative flex items-center justify-center p-2 sm:p-2.5 rounded-full border border-zinc-800/80 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all duration-300 cursor-pointer focus:outline-none group"
+          aria-label="Copy Email"
+          data-email={email}
+        >
+          <!-- Copy icon -->
+          <svg
+            id="copy-icon"
+            class="h-4 w-4 sm:h-5 sm:w-5 transition-all duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+            ></path>
+          </svg>
+          <!-- Check icon -->
+          <svg
+            id="check-icon"
+            class="h-4 w-4 sm:h-5 sm:w-5 hidden text-green-400 transition-all duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+
+          <!-- Tooltip -->
+          <span
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-950 border border-zinc-800 text-[10px] sm:text-xs font-medium font-body text-zinc-300 rounded shadow-xl opacity-0 scale-95 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 whitespace-nowrap z-20"
+            id="copy-tooltip"
+          >
+            Copy email
+          </span>
+        </button>
       </div>
     </div>
 
@@ -119,6 +162,39 @@ const email = "avi052001@gmail.com";
         top: 0,
         behavior: "smooth",
       });
+    });
+  }
+
+  // Copy Email to Clipboard
+  const copyEmailBtn = document.getElementById("copy-email-btn");
+  const copyIcon = document.getElementById("copy-icon");
+  const checkIcon = document.getElementById("check-icon");
+  const copyTooltip = document.getElementById("copy-tooltip");
+
+  if (copyEmailBtn && copyIcon && checkIcon && copyTooltip) {
+    copyEmailBtn.addEventListener("click", async () => {
+      const emailText = copyEmailBtn.getAttribute("data-email");
+      if (!emailText) return;
+
+      try {
+        await navigator.clipboard.writeText(emailText);
+
+        // Show success state
+        copyIcon.classList.add("hidden");
+        checkIcon.classList.remove("hidden");
+        copyTooltip.textContent = "Copied!";
+        copyEmailBtn.classList.add("border-green-500/50");
+
+        // Reset state after 2 seconds
+        setTimeout(() => {
+          copyIcon.classList.remove("hidden");
+          checkIcon.classList.add("hidden");
+          copyTooltip.textContent = "Copy email";
+          copyEmailBtn.classList.remove("border-green-500/50");
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy email: ", err);
+      }
     });
   }
 </script>

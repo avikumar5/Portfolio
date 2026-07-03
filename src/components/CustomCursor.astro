@@ -3,11 +3,12 @@
 ---
 
 <div
-  class="custom-cursor-dot fixed pointer-events-none rounded-full bg-white z-[9999] opacity-0 w-2.5 h-2.5 top-0 left-0"
+  class="custom-cursor-dot fixed pointer-events-none rounded-full bg-white z-[100000] opacity-0 w-2.5 h-2.5 top-0 left-0 flex items-center justify-center text-[0px] font-bold text-black font-body uppercase tracking-wider text-center select-none whitespace-nowrap"
 >
+  <span class="custom-cursor-text inline-block"></span>
 </div>
 <div
-  class="custom-cursor-ring fixed pointer-events-none rounded-full border border-white/20 z-[9998] opacity-0 w-9 h-9 top-0 left-0"
+  class="custom-cursor-ring fixed pointer-events-none rounded-full border border-white/20 z-[99999] opacity-0 w-9 h-9 top-0 left-0"
 >
 </div>
 
@@ -25,12 +26,26 @@
       cursor: none !important;
     }
   }
+
+  @keyframes cursor-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .cursor-text-rotate {
+    animation: cursor-spin 2s linear infinite;
+  }
 </style>
 
 <script>
   import { gsap } from "gsap";
 
   const dot = document.querySelector(".custom-cursor-dot") as HTMLElement;
+  const cursorText = dot?.querySelector(".custom-cursor-text") as HTMLElement;
 
   if (dot) {
     // Only enable cursor on devices with fine pointer (mouse/trackpad)
@@ -40,8 +55,15 @@
 
       const cursorCoords = { x: 0, y: 0 };
 
-      // Initialize half-sizes (radii) of the elements to offset centering
-      const dotRadius = 5; // 10px / 2
+      // Track cursor width, height, and radius dynamically to offset centering
+      const cursorState = {
+        width: 10,
+        height: 10,
+        radius: 5,
+      };
+
+      // Session tracking for whether the user has held/interacted with hold-play elements
+      let hasHeldPlay = false;
 
       // Track mouse position
       window.addEventListener("mousemove", (e) => {
@@ -60,29 +82,74 @@
       });
       // Run update loop using GSAP ticker
       gsap.ticker.add(() => {
-        setDotX(cursorCoords.x - dotRadius);
-        setDotY(cursorCoords.y - dotRadius);
+        setDotX(cursorCoords.x - cursorState.radius);
+        setDotY(cursorCoords.y - cursorState.radius);
       });
+
+      const onHoldPlayMouseDown = () => {
+        if (!hasHeldPlay) {
+          hasHeldPlay = true;
+          onClickMeLeave();
+        }
+      };
 
       // React to user interactive hovers
       const updateHoverTargets = () => {
         const interactives = document.querySelectorAll(
-          "a, button, [role='button'], .cursor-pointer, input, select, textarea, .tech-pill, canvas",
+          "a, button, [role='button'], .cursor-pointer, input, select, textarea, .tech-pill, canvas, [data-cursor='click-me'], [data-cursor='hold-play']",
         );
 
         interactives.forEach((el) => {
           // Prevent multiple listeners
           el.removeEventListener("mouseenter", onMouseEnter);
           el.removeEventListener("mouseleave", onMouseLeave);
+          el.removeEventListener("mouseenter", onClickMeEnter);
+          el.removeEventListener("mouseleave", onClickMeLeave);
+          el.removeEventListener("mousedown", onHoldPlayMouseDown);
 
-          el.addEventListener("mouseenter", onMouseEnter);
-          el.addEventListener("mouseleave", onMouseLeave);
+          const cursorType =
+            el.getAttribute("data-cursor") ||
+            (el as HTMLElement)
+              .closest("[data-cursor]")
+              ?.getAttribute("data-cursor");
+          if (cursorType === "click-me" || cursorType === "hold-play") {
+            // Ensure the element has the attribute set so event handler can read it
+            if (!el.getAttribute("data-cursor")) {
+              el.setAttribute("data-cursor", cursorType);
+            }
+            el.addEventListener("mouseenter", onClickMeEnter);
+            el.addEventListener("mouseleave", onClickMeLeave);
+
+            if (cursorType === "hold-play") {
+              el.addEventListener("mousedown", onHoldPlayMouseDown);
+            }
+          } else {
+            el.addEventListener("mouseenter", onMouseEnter);
+            el.addEventListener("mouseleave", onMouseLeave);
+          }
         });
       };
 
       const onMouseEnter = () => {
+        // Reset scale and text in case we hovered from a certificate or playground
+        if (cursorText) {
+          cursorText.textContent = "";
+          cursorText.classList.remove("cursor-text-rotate");
+        }
+        gsap.to(cursorState, {
+          width: 10,
+          height: 10,
+          radius: 5,
+          duration: 0.2,
+          ease: "power2.out",
+          onUpdate: () => {
+            dot.style.width = `${cursorState.width}px`;
+            dot.style.height = `${cursorState.height}px`;
+          },
+        });
         gsap.to(dot, {
           scale: 0.6,
+          fontSize: "0px",
           duration: 0.3,
           ease: "power2.out",
         });
@@ -90,6 +157,76 @@
 
       const onMouseLeave = () => {
         gsap.to(dot, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      const onClickMeEnter = (e: Event) => {
+        const el = e.currentTarget as HTMLElement;
+        const type = el.getAttribute("data-cursor");
+
+        if (type === "hold-play" && hasHeldPlay) {
+          onMouseEnter();
+          return;
+        }
+
+        let text = "Click Me";
+        let width = 80;
+        let fontSize = "10px";
+
+        if (type === "hold-play") {
+          text = "hold & play";
+          width = 96;
+          fontSize = "9px";
+        }
+
+        if (cursorText) {
+          cursorText.textContent = text;
+          cursorText.classList.add("cursor-text-rotate");
+        }
+        gsap.to(cursorState, {
+          width: width,
+          height: width,
+          radius: width / 2,
+          duration: 0.3,
+          ease: "power2.out",
+          onUpdate: () => {
+            dot.style.width = `${cursorState.width}px`;
+            dot.style.height = `${cursorState.height}px`;
+          },
+        });
+        gsap.to(dot, {
+          scale: 1, // override standard interactive scale
+          fontSize: fontSize,
+          color: "#000000",
+          backgroundColor: "#ffffff",
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      const onClickMeLeave = () => {
+        gsap.to(cursorState, {
+          width: 10,
+          height: 10,
+          radius: 5,
+          duration: 0.3,
+          ease: "power2.out",
+          onUpdate: () => {
+            dot.style.width = `${cursorState.width}px`;
+            dot.style.height = `${cursorState.height}px`;
+          },
+          onComplete: () => {
+            if (cursorText) {
+              cursorText.textContent = "";
+              cursorText.classList.remove("cursor-text-rotate");
+            }
+          },
+        });
+        gsap.to(dot, {
+          fontSize: "0px",
           scale: 1,
           duration: 0.3,
           ease: "power2.out",
