@@ -154,7 +154,7 @@
   </div>
 
   <!-- Content Containers -->
-  <div class="min-h-[220px] max-h-[300px] overflow-y-auto pr-0.5">
+  <div class="min-h-[220px] max-h-[350px] overflow-y-auto pr-0.5 pb-2 custom-scrollbar">
     <!-- Top Weekly Tracks tab -->
     <div id="tab-content-songs" class="space-y-3">
       <div
@@ -261,6 +261,21 @@
       transform: rotate(360deg);
     }
   }
+
+  /* Custom scrollbar styling for content container */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 </style>
 
 <script>
@@ -296,6 +311,20 @@
 
   let isPanelOpen = false;
   let cache: Record<string, any> = {};
+  let isPreloaderActive = !!document.getElementById("preloader");
+
+  window.addEventListener("preloader-complete", () => {
+    isPreloaderActive = false;
+    if (widget && trackTitle && trackTitle.textContent !== "Not Playing" && widget.classList.contains("hidden")) {
+      widget.classList.remove("hidden");
+      gsap.to(widget, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+    }
+  });
 
   function isPlaceholder(url: string | null | undefined) {
     if (!url || url.trim() === "") return true;
@@ -484,7 +513,7 @@
       }
 
       // Reveal widget if hidden (animate in)
-      if (widget.classList.contains("hidden")) {
+      if (widget.classList.contains("hidden") && !isPreloaderActive) {
         widget.classList.remove("hidden");
         gsap.to(widget, {
           y: 0,

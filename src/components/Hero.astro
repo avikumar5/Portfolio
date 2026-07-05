@@ -52,12 +52,21 @@ import SplitTextHover from "./SplitTextHover.astro";
     </SplitText>
 
     <!-- Call to Action -->
-    <a
-      href="#contact"
-      class="inline-block group border border-white bg-white px-6 py-3.5 text-sm font-bold text-black rounded-xl hover:bg-black hover:text-white transition-all duration-300 shadow-md shadow-white/5"
-    >
-      <SplitTextHover text="Book a call" />
-    </a>
+    <div class="flex flex-wrap items-center gap-4">
+      <a
+        href="#contact"
+        class="inline-block group border border-white bg-white px-6 py-3.5 text-sm font-bold text-black rounded-xl hover:bg-black hover:text-white transition-all duration-300 shadow-md shadow-white/5"
+      >
+        <SplitTextHover text="Contact Me!" />
+      </a>
+      <a
+        href="/kshitiz_resume.pdf"
+        download="kshitiz_resume.pdf"
+        class="inline-block group border border-zinc-700 bg-transparent px-6 py-3.5 text-sm font-bold text-white rounded-xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 shadow-md"
+      >
+        <SplitTextHover text="Resume" />
+      </a>
+    </div>
   </div>
 </section>
 

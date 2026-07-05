@@ -35,15 +35,12 @@ const technologies = [
   { name: "Colab", iconClass: "devicons devicons-jupyter" },
   { name: "Git", iconClass: "devicons devicons-git-icon" },
   { name: "Jupyter notebook", iconClass: "devicons devicons-jupyter" },
-  { name: "Docker", iconClass: "devicons devicons-docker-icon colored" },
+  { name: "Docker", iconClass: "devicons devicons-docker-icon" },
   { name: "AWS", iconClass: "devicons devicons-aws" },
 ];
 ---
 
-<section
-  id="about"
-  class="border-b border-zinc-900 px-6 py-24 md:px-12 md:py-32"
->
+<section id="about" class="border-b border-zinc-900 px-6 py-24 md:px-12">
   <div class="mx-auto max-w-[1600px] space-y-20 md:space-y-32">
     <!-- Top Row: About Me Biography -->
     <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
@@ -121,7 +118,7 @@ const technologies = [
             <div
               class={`px-0 sm:px-6 lg:px-8 ${index > 0 ? "lg:border-l border-[#525151]" : ""} ${index === 1 || index === 3 ? "sm:border-l border-[#525151]" : ""} ${index === 2 ? "sm:border-l-0 lg:border-l border-[#525151]" : ""} space-y-2`}
             >
-              <div 
+              <div
                 class="stat-value font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tight"
                 data-target-val={stat.value}
               >
@@ -197,7 +194,7 @@ const technologies = [
   .devicons-langchain {
     color: #38c3b1 !important;
   }
-  .devicons-hugging-face {
+  .devicons-hugging-face-icon {
     color: #ffd21e !important;
   }
   .devicons-n8n {
@@ -212,7 +209,7 @@ const technologies = [
   .devicons-postgresql {
     color: #4169e1 !important;
   }
-  .devicons-typescript {
+  .devicons-typescript-icon {
     color: #3178c6 !important;
   }
   .devicons-nestjs {
@@ -239,7 +236,7 @@ const technologies = [
   .devicons-nextjs {
     color: #ffffff !important;
   }
-  .devicons-greensock {
+  .devicons-greensock-icon {
     color: #88ce02 !important;
   }
   .devicons-threejs {
@@ -251,10 +248,10 @@ const technologies = [
   .devicons-jupyter {
     color: #f37626 !important;
   }
-  .devicons-git {
+  .devicons-git-icon {
     color: #f05032 !important;
   }
-  .devicons-docker {
+  .devicons-docker-icon {
     color: #2496ed !important;
   }
   .devicons-aws {
@@ -293,7 +290,7 @@ const technologies = [
       return {
         prefix: match[1],
         target: parseInt(match[2], 10),
-        suffix: match[3]
+        suffix: match[3],
       };
     }
     return null;
@@ -320,7 +317,7 @@ const technologies = [
         scrollTrigger: {
           trigger: el,
           start: "top 85%",
-          toggleActions: "play none none none"
+          toggleActions: "play none none none",
         },
         duration: 1.5,
         ease: "power2.out",
@@ -329,7 +326,7 @@ const technologies = [
         },
         onComplete: () => {
           el.textContent = targetValStr;
-        }
+        },
       });
     });
   });
