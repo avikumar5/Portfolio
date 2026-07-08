@@ -3,6 +3,10 @@ import "../styles/global.css";
 import SmoothScroll from "../components/SmoothScroll.astro";
 import CustomCursor from "../components/CustomCursor.astro";
 import MusicWidget from "../components/MusicWidget.astro";
+import GoogleAnalytics from "@astro-kits/google-analytics";
+
+import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
 	title?: string;
@@ -22,6 +26,7 @@ const {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<GoogleAnalytics id="G-MLBPYLRT1V" production={true} />
 
 		<!-- FontAwesome CDN -->
 		<link
@@ -35,6 +40,10 @@ const {
 		<!-- SEO Meta Tags -->
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta
+			name="google-site-verification"
+			content="V6Hd7l7MNyVMnvuMGcEmy2JNEZafZJUCJ_JQG0jWeSI"
+		/>
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
@@ -54,5 +63,7 @@ const {
 		<SmoothScroll />
 		<CustomCursor />
 		<MusicWidget />
+		<SpeedInsights />
+		<Analytics />
 	</body>
 </html>
