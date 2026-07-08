@@ -3,7 +3,6 @@ import "../styles/global.css";
 import SmoothScroll from "../components/SmoothScroll.astro";
 import CustomCursor from "../components/CustomCursor.astro";
 import MusicWidget from "../components/MusicWidget.astro";
-import GoogleAnalytics from "@astro-kits/google-analytics";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
@@ -17,6 +16,7 @@ const {
 	title = "Portfolio | Minimalist Designer & Developer",
 	description = "A responsive single-page portfolio styled in minimalist dark mode, showcasing work experience, technologies, and achievements.",
 } = Astro.props;
+const isProduction = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -26,8 +26,21 @@ const {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<GoogleAnalytics id="G-MLBPYLRT1V" production={true} />
 
+		<!-- Google Analytics -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-MLBPYLRT1V"
+		></script>
+
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+			gtag("config", "G-MLBPYLRT1V");
+		</script>
 		<!-- FontAwesome CDN -->
 		<link
 			rel="stylesheet"
