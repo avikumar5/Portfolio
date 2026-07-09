@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import StructuredData from "../components/StructuredData.astro";
 import Loader from "../components/Loader.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
@@ -8,9 +9,92 @@ import Experience from "../components/Experience.astro";
 import Technologies from "../components/Technologies.astro";
 import Education from "../components/Education.astro";
 import Footer from "../components/Footer.astro";
+
+const siteUrl = "https://kshitizkumar.vercel.app";
+const pageTitle = "Kshitiz Kumar | Full-Stack Developer and AI Engineer";
+const pageDescription =
+	"Portfolio of Kshitiz Kumar, a full-stack developer building scalable web applications and applied AI systems.";
+const canonicalUrl = `${siteUrl}/`;
+const ogImage = `${siteUrl}/avatar.png`;
+const keywords = [
+	"Kshitiz Kumar",
+	"full-stack developer",
+	"AI engineer",
+	"Astro portfolio",
+	"React developer",
+	"NestJS developer",
+	"web developer portfolio",
+	"software developer portfolio",
+];
+
+const schema = [
+	{
+		"@type": "Person",
+		"@id": `${siteUrl}/#person`,
+		name: "Kshitiz Kumar",
+		url: siteUrl,
+		image: `${siteUrl}/avatar.png`,
+		email: "mailto:avi052001@gmail.com",
+		jobTitle: "Full-Stack Developer",
+		description:
+			"Full-stack developer focused on scalable SaaS platforms, modern web engineering, and applied AI systems.",
+		knowsAbout: [
+			"JavaScript",
+			"TypeScript",
+			"React",
+			"Next.js",
+			"NestJS",
+			"Node.js",
+			"Python",
+			"PostgreSQL",
+			"Artificial Intelligence",
+			"RAG",
+		],
+		alumniOf: {
+			"@type": "CollegeOrUniversity",
+			name: "Raj Kumar Goel Institute of Technology",
+		},
+		worksFor: {
+			"@type": "Organization",
+			name: "Manysphere Technologies Pvt. Ltd.",
+		},
+	},
+	{
+		"@type": "WebSite",
+		"@id": `${siteUrl}/#website`,
+		url: siteUrl,
+		name: "Kshitiz Kumar Portfolio",
+		description: pageDescription,
+		inLanguage: "en",
+	},
+	{
+		"@type": "WebPage",
+		"@id": `${siteUrl}/#webpage`,
+		url: siteUrl,
+		name: pageTitle,
+		description: pageDescription,
+		isPartOf: {
+			"@id": `${siteUrl}/#website`,
+		},
+		about: {
+			"@id": `${siteUrl}/#person`,
+		},
+		mainEntity: {
+			"@id": `${siteUrl}/#person`,
+		},
+	},
+];
 ---
 
-<Layout title="Creative Developer Portfolio">
+<Layout
+	title={pageTitle}
+	description={pageDescription}
+	canonicalUrl={canonicalUrl}
+	robots="index, follow, max-image-preview:large"
+	keywords={keywords}
+	ogImage={ogImage}
+>
+	<StructuredData slot="head" schema={schema} />
 	<Loader />
 	<Navbar />
 	<main class="relative min-h-screen">
