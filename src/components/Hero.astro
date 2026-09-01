@@ -62,6 +62,7 @@ import SplitTextHover from "./SplitTextHover.astro";
       <a
         href="/kshitiz_resume.pdf"
         download="kshitiz_resume.pdf"
+        id="resume-download-link"
         class="inline-block group border border-zinc-700 bg-transparent px-6 py-3.5 text-sm font-bold text-white rounded-xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 shadow-md"
       >
         <SplitTextHover text="Resume" />
@@ -88,10 +89,16 @@ import SplitTextHover from "./SplitTextHover.astro";
 <script>
   import { gsap } from "gsap";
   import { TextPlugin } from "gsap/TextPlugin";
+  import { trackEvent } from "../lib/analytics";
 
   gsap.registerPlugin(TextPlugin);
 
   document.addEventListener("DOMContentLoaded", () => {
+    const resumeLink = document.getElementById("resume-download-link");
+    resumeLink?.addEventListener("click", () => {
+      trackEvent("resume_download", { link_location: "hero" });
+    });
+
     const textEl = document.querySelector(".typewriter-text");
     if (!textEl) return;
 

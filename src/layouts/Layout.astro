@@ -39,20 +39,26 @@ const keywordContent = Array.isArray(keywords) ? keywords.join(", ") : keywords;
 		<meta name="generator" content={Astro.generator} />
 		<slot name="head" />
 
-		<!-- Google Analytics -->
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-MLBPYLRT1V"
-		></script>
-
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
-			gtag("config", "G-MLBPYLRT1V");
-		</script>
+		<!-- Google Analytics (production only, keeps local dev traffic out of GA4) -->
+		{
+			isProduction && (
+				<Fragment>
+					<script
+						is:inline
+						async
+						src="https://www.googletagmanager.com/gtag/js?id=G-MLBPYLRT1V"
+					/>
+					<script is:inline>
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {
+							dataLayer.push(arguments);
+						}
+						gtag("js", new Date());
+						gtag("config", "G-MLBPYLRT1V");
+					</script>
+				</Fragment>
+			)
+		}
 		<!-- FontAwesome CDN -->
 		<link
 			rel="stylesheet"

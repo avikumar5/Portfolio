@@ -38,6 +38,7 @@ const email = "avi052001@gmail.com";
       <div class="flex items-center gap-3 sm:gap-4">
         <a
           href={`mailto:${email}`}
+          id="email-link"
           class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium tracking-tight text-white hover:text-zinc-400 transition-colors duration-300 select-all"
         >
           {email}
@@ -98,7 +99,8 @@ const email = "avi052001@gmail.com";
               href={soc.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center gap-2 px-5 py-2.5 border border-zinc-800/80 rounded-full font-body text-xs font-bold tracking-wider text-zinc-300 hover:text-white hover:border-zinc-500 transition-all duration-300"
+              class="social-link flex items-center gap-2 px-5 py-2.5 border border-zinc-800/80 rounded-full font-body text-xs font-bold tracking-wider text-zinc-300 hover:text-white hover:border-zinc-500 transition-all duration-300"
+              data-social-name={soc.name}
             >
               <i class={`${soc.faClass} text-sm`} />
               <span>{soc.name}</span>
@@ -149,6 +151,21 @@ const email = "avi052001@gmail.com";
 </footer>
 
 <script>
+  import { trackEvent } from "../lib/analytics";
+
+  // Social & email click tracking
+  document.getElementById("email-link")?.addEventListener("click", () => {
+    trackEvent("contact_click", { method: "email_link" });
+  });
+
+  document.querySelectorAll(".social-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      trackEvent("social_click", {
+        platform: link.getAttribute("data-social-name") || "unknown",
+      });
+    });
+  });
+
   // Back to Top Smooth Scroll
   const backToTopBtn = document.getElementById("back-to-top");
   if (backToTopBtn) {
@@ -173,6 +190,7 @@ const email = "avi052001@gmail.com";
 
       try {
         await navigator.clipboard.writeText(emailText);
+        trackEvent("contact_click", { method: "email_copy" });
 
         // Show success state
         copyIcon.classList.add("hidden");
