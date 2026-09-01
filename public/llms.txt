@@ -1,0 +1,16 @@
+# Kshitiz Kumar
+
+> Full-stack developer and AI engineer building scalable SaaS platforms and applied AI systems (RAG pipelines, vector search, AI agents).
+
+Kshitiz Kumar works with React, Next.js, NestJS, Node.js, and Python, and specializes in integrating AI capabilities into production software. Currently at Manysphere Technologies Pvt. Ltd.
+
+## Pages
+
+- [Portfolio](https://kshitizkumar.vercel.app/): About, work experience, technical skills, and education, all on a single page.
+- [Resume](https://kshitizkumar.vercel.app/kshitiz_resume.pdf): Full resume as PDF.
+
+## Contact
+
+- Email: avi052001@gmail.com
+- LinkedIn: https://www.linkedin.com/in/kshitizk05/
+- GitHub: https://github.com/avikumar5

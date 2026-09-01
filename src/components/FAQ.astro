@@ -1,0 +1,58 @@
+---
+import { faqs } from "../data/faqs";
+---
+
+<section id="faq" class="border-b border-zinc-900 px-6 py-20 md:px-12">
+  <div class="mx-auto max-w-[1600px]">
+    <!-- Section Identifier -->
+    <div
+      class="mb-12 flex items-center justify-between border-b border-zinc-900 pb-4"
+    >
+      <h2
+        class="font-heading text-xs font-bold uppercase tracking-widest text-zinc-500"
+      >
+        05 / FREQUENTLY ASKED QUESTIONS
+      </h2>
+      <span class="text-xs text-zinc-600 uppercase tracking-widest font-mono"
+        >Q&amp;A</span
+      >
+    </div>
+
+    <!-- Accordion -->
+    <div class="mx-auto max-w-4xl divide-y divide-zinc-900">
+      {
+        faqs.map((faq) => (
+          <details class="faq-item group py-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6">
+              <span class="font-heading text-base sm:text-lg font-semibold text-white group-hover:text-zinc-300 transition-colors duration-200">
+                {faq.question}
+              </span>
+              <span class="faq-icon relative h-4 w-4 shrink-0 text-zinc-500 group-hover:text-white transition-colors duration-200">
+                <span class="absolute inset-0 flex items-center justify-center">
+                  <span class="h-[1.5px] w-4 bg-current" />
+                </span>
+                <span class="faq-icon-vert absolute inset-0 flex items-center justify-center transition-transform duration-200">
+                  <span class="h-4 w-[1.5px] bg-current" />
+                </span>
+              </span>
+            </summary>
+            <p class="mt-4 max-w-3xl font-body text-sm sm:text-base leading-relaxed text-zinc-400">
+              {faq.answer}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item[open] .faq-icon-vert {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+</style>

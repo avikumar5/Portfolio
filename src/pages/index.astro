@@ -8,7 +8,9 @@ import About from "../components/About.astro";
 import Experience from "../components/Experience.astro";
 import Technologies from "../components/Technologies.astro";
 import Education from "../components/Education.astro";
+import FAQ from "../components/FAQ.astro";
 import Footer from "../components/Footer.astro";
+import { faqs } from "../data/faqs";
 
 const siteUrl = "https://kshitizkumar.vercel.app";
 const pageTitle = "Kshitiz Kumar | Full-Stack Developer and AI Engineer";
@@ -59,6 +61,10 @@ const schema = [
 			"@type": "Organization",
 			name: "Manysphere Technologies Pvt. Ltd.",
 		},
+		sameAs: [
+			"https://www.linkedin.com/in/kshitizk05/",
+			"https://github.com/avikumar5",
+		],
 	},
 	{
 		"@type": "WebSite",
@@ -84,6 +90,18 @@ const schema = [
 			"@id": `${siteUrl}/#person`,
 		},
 	},
+	{
+		"@type": "FAQPage",
+		"@id": `${siteUrl}/#faq`,
+		mainEntity: faqs.map((faq) => ({
+			"@type": "Question",
+			name: faq.question,
+			acceptedAnswer: {
+				"@type": "Answer",
+				text: faq.answer,
+			},
+		})),
+	},
 ];
 ---
 
@@ -104,6 +122,7 @@ const schema = [
 		<Experience />
 		<Technologies />
 		<Education />
+		<FAQ />
 	</main>
 	<Footer />
 </Layout>
