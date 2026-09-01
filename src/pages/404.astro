@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SplitText from "../components/SplitText.astro";
+import SplitTextHover from "../components/SplitTextHover.astro";
+---
+
+<Layout
+	title="Page Not Found | Kshitiz Kumar"
+	description="The page you're looking for doesn't exist."
+	robots="noindex, follow"
+>
+	<main class="relative flex min-h-screen flex-col items-center justify-center border-b border-zinc-900 px-6 py-24 text-center md:px-12">
+		<div class="mx-auto flex w-full max-w-2xl flex-col items-center">
+			<span
+				class="mb-4 font-heading text-[clamp(5rem,20vw,10rem)] font-bold leading-none tracking-tight text-white"
+			>
+				404
+			</span>
+
+			<SplitText
+				as="h1"
+				trigger="load"
+				class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-4"
+			>
+				Page not found
+			</SplitText>
+
+			<SplitText
+				as="p"
+				trigger="load"
+				delay={150}
+				class="font-body text-base sm:text-lg text-zinc-400 max-w-md mb-10 leading-relaxed"
+			>
+				The page you're looking for doesn't exist or may have been moved.
+			</SplitText>
+
+			<div class="flex flex-wrap items-center justify-center gap-4">
+				<a
+					href="/"
+					class="inline-block group border border-white bg-white px-6 py-3.5 text-sm font-bold text-black rounded-xl hover:bg-black hover:text-white transition-all duration-300 shadow-md shadow-white/5"
+				>
+					<SplitTextHover text="Back to Home" />
+				</a>
+			</div>
+		</div>
+	</main>
+</Layout>
