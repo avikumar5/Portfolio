@@ -39,16 +39,16 @@ const keywordContent = Array.isArray(keywords) ? keywords.join(", ") : keywords;
 		<meta name="generator" content={Astro.generator} />
 		<slot name="head" />
 
-		<!-- Google Analytics (production only, keeps local dev traffic out of GA4) -->
+		<!-- Google Analytics (production only, keeps local dev traffic out of GA4; runs off the main thread via Partytown) -->
 		{
 			isProduction && (
 				<Fragment>
 					<script
 						is:inline
-						async
+						type="text/partytown"
 						src="https://www.googletagmanager.com/gtag/js?id=G-MLBPYLRT1V"
 					/>
-					<script is:inline>
+					<script is:inline type="text/partytown">
 						window.dataLayer = window.dataLayer || [];
 						function gtag() {
 							dataLayer.push(arguments);
